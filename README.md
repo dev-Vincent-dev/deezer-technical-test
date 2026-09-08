@@ -34,7 +34,9 @@ Cloner le dépôt puis installer le projet et ses dépendances (dépendances de 
 git clone https://github.com/dev-Vincent-dev/deezer-technical-test.git
 cd deezer-technical-test
 python3.11 -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate # Sur Linux / macOS ou...
+# .venv\Scripts\activate.bat # Sur Windows (Invite de commandes) ou...
+# .venv\Scripts\Activate.ps1 # Sur Windows (PowerShell)
 pip install -e ".[dev]"
 ```
 
