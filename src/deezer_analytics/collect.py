@@ -441,7 +441,7 @@ class DeezerCollector:
         """Convertit une date Deezer en objet date.
 
         Args:
-            value: Date au format YYYY-MM-DD.
+            value: Date au format YYYY-mm-dd.
 
         Returns:
             Date convertie ou None si la valeur est absente ou invalide.
