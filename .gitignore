@@ -2,7 +2,7 @@
 .venv
 
 # Packaging
-*.egg_info/
+**/*.egg_info/
 
 # Cache Python
 __pycache__/
