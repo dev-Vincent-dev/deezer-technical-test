@@ -1,0 +1,11 @@
+# Environnement virtuel
+.venv
+
+# Packaging
+*.egg_info/
+
+# Cache Python
+__pycache__/
+
+# Mypy
+.mypy_cache/
