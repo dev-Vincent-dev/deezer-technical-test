@@ -186,6 +186,90 @@ class DeezerClient:
 
         return data
 
+    def search_playlists(
+        self,
+        query: str,
+        index: int = 0,
+        limit: int = 25,
+    ) -> dict[str, Any]:
+        """Recherche des playlists dans le catalogue Deezer.
+
+        Args:
+            query: Terme utilisé pour la recherche.
+            index: Index du premier résultat à retourner.
+            limit: Nombre maximal de résultats à retourner.
+
+        Returns:
+            Résultats de la recherche Deezer.
+
+        Raises:
+            DeezerAPIError: Si la requête échoue.
+        """
+        return self.get(
+            "/search/playlist",
+            params={
+                "q": query,
+                "index": index,
+                "limit": limit,
+            },
+        )
+
+    def get_playlist(self, playlist_id: int) -> dict[str, Any]:
+        """Récupère les informations détaillées d'une playlist.
+
+        Args:
+            playlist_id: Identifiant Deezer de la playlist.
+
+        Returns:
+            Données détaillées de la playlist, incluant ses titres.
+
+        Raises:
+            DeezerAPIError: Si la requête échoue.
+        """
+        return self.get(f"/playlist/{playlist_id}")
+
+    def get_track(self, track_id: int) -> dict[str, Any]:
+        """Récupère les informations détaillées d'un titre.
+
+        Args:
+            track_id: Identifiant Deezer du titre.
+
+        Returns:
+            Données détaillées du titre.
+
+        Raises:
+            DeezerAPIError: Si la requête échoue.
+        """
+        return self.get(f"/track/{track_id}")
+
+    def get_album(self, album_id: int) -> dict[str, Any]:
+        """Récupère les informations détaillées d'un album.
+
+        Args:
+            album_id: Identifiant Deezer de l'album.
+
+        Returns:
+            Données détaillées de l'album.
+
+        Raises:
+            DeezerAPIError: Si la requête échoue.
+        """
+        return self.get(f"/album/{album_id}")
+
+    def get_artist(self, artist_id: int) -> dict[str, Any]:
+        """Récupère les informations détaillées d'un artiste.
+
+        Args:
+            artist_id: Identifiant Deezer de l'artiste.
+
+        Returns:
+            Données détaillées de l'artiste.
+
+        Raises:
+            DeezerAPIError: Si la requête échoue.
+        """
+        return self.get(f"/artist/{artist_id}")
+
     def close(self) -> None:
         """Ferme la session HTTP."""
 
