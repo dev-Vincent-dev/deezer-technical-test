@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Any
+from time import sleep
 
 import requests
 from requests import Response
@@ -22,7 +23,12 @@ class DeezerClient:
     DEFAULT_MAX_RETRIES = 3
     DEFAULT_BACKOFF_FACTOR = 1.0
 
+
     RETRY_STATUS_CODES = (429, 500, 502, 503, 504)
+
+
+    NB_QUERY_RATE_LIMIT = 50 # nombre de requêtes maximales...
+    PERIOD_OF_TIME_RATE_LIMIT = 5 # ...sur cette période en secondes
 
     def __init__(
         self,
@@ -158,6 +164,9 @@ class DeezerClient:
         """
 
         url = self._build_url(endpoint)
+
+        # Rate limiter
+        sleep(self.PERIOD_OF_TIME_RATE_LIMIT / self.NB_QUERY_RATE_LIMIT)
 
         try:
             response = self._session.get(
