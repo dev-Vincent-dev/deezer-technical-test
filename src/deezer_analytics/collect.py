@@ -176,7 +176,7 @@ class DeezerCollector:
 
             print(
                 f"Requête '{query}' terminée :",
-                f"{len(query_track_ids)} nouvelles tacks unique ajoutées"
+                f"{len(query_track_ids)} nouvelles tacks uniques ajoutées"
             )
 
         return list(tracks_by_id.values())
