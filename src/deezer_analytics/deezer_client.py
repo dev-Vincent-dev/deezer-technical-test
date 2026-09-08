@@ -184,6 +184,17 @@ class DeezerClient:
                 "La réponse de Deezer doit être un objet JSON."
             )
 
+        error = data.get("error")
+
+        if isinstance(error, dict):
+            message = error.get("message", "Erreur inconnue")
+            code = error.get("code")
+
+            raise DeezerAPIError(
+                f"L'API Deezer a retourné une erreur "
+                f"{code}: {message}"
+            )
+
         return data
 
     def search_playlists(
