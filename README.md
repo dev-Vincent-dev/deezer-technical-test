@@ -124,3 +124,23 @@ Les résultat des tests de Kruskal-Wallis montre une différence significative e
 
 On peut donc en conclure que, dans notre échantillon, le BPM et la durée des titres diffèrent significativement selon le genre musical.
 
+## Question 3 : BPM, durée et popularité
+
+*__Question__ : Existe-t-il des combinaisons de BPM et de durée davantage associées aux titres les plus populaires sur Deezer ?*
+
+
+Pour étudier cette relation, les titres ont été regroupés par intervalles de 10 BPM et de 30 secondes. Pour chaque combinaison, le rang Deezer médian a été calculé. Un rang élevé correspond à une popularité plus importante sur Deezer.
+
+Les combinaisons présentant les rangs médians les plus élevés sont notamment :
+
+90–100 BPM et 210–240 secondes : rang médian de 757 446, pour 30 titres\
+90–100 BPM et 180–210 secondes : rang médian de 719 292, pour 30 titres\
+120–130 BPM et 240–270 secondes : rang médian de 708 680, pour 37 titres\
+120–130 BPM et 210–240 secondes : rang médian de 664 222, pour 50 titres\
+110–120 BPM et 210–240 secondes : rang médian de 619 486, pour 37 titres
+
+Les résultats suggèrent qu'il existe, dans notre échantillon, certaines combinaisons de BPM et de durée associées à des titres plus populaires. Les zones autour de 90–100 BPM et 110–130 BPM, avec des durées principalement comprises entre 3 et 4 minutes, présentent notamment des rangs médians élevés.
+
+Cependant, cette analyse montre une association et non une relation de causalité. Elle ne permet pas à elle-seule de conclure qu'un BPM et une durée particulière rend un titre plus populaire.
+
+De plus, l'échantillon est constitué de titres issus de playlists et donc déjà sélectionnés pour leur popularité. Les titres étudiés sont ainsi globalement populaires et ne représentent pas nécessairement l'ensemble de la diversité musicale disponible. Les résultats peuvent donc être biaisés par cette sélection et ne peuvent pas être généralisés à l'ensemble des titres et genres musicaux.
