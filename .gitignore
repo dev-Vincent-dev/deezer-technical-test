@@ -7,5 +7,6 @@
 # Cache Python
 __pycache__/
 
-# Mypy
+# Cache Mypy, Pytest
 .mypy_cache/
+.pytest_cache/
