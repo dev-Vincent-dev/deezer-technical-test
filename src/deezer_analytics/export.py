@@ -16,7 +16,10 @@ def save_enriched_tracks_to_csv(
 
     for track in tracks:
         row = asdict(track)
-        row["album_genres"] = "|".join(track.album_genres)
+        if track.album_genres is not None:
+            row["album_genres"] = "|".join(track.album_genres)
+        else:
+            row["album_genres"] = ""
         rows.append(row)
 
     with open(filepath, "w", newline="", encoding="utf-8") as file:
