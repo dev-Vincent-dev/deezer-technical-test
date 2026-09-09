@@ -16,6 +16,7 @@ Vincent RICHARD - vincent.richard.contact@gmail.com
 - Requests 2.32
 - Pandas 2.2
 - SciPy 1.14
+- Matplotlib 3.11
 
 <br>
 
