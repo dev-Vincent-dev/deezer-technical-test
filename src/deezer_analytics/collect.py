@@ -11,31 +11,31 @@ from deezer_analytics.models import TrackEnriched
 class DeezerCollector:
     """Collecte un échantillon de titres depuis l'API Deezer."""
 
-    DEFAULT_QUERIES = (
-        "pop 2024",
-        "pop 2025",
-        "pop 2026",
-        "rock 2024",
-        "rock 2025",
-        "rock 2026",
-        "indie 2024",
-        "indie 2025",
-        "indie 2026",
-        "jazz 2024",
-        "jazz 2025",
-        "jazz 2026",
-        "electro 2024",
-        "electro 2025",
-        "electro 2026"
-    )
+    DEFAULT_QUERIES = [
+        "pop 2000",
+        "pop 2010",
+        "pop 2020",
+        "alternative 2000",
+        "alternative 2010",
+        "alternative 2020",
+        "dance 2000",
+        "dance 2010",
+        "dance 2020",
+        "latino 2000",
+        "latino 2010",
+        "latino 2020",
+        "country 2000",
+        "country 2010",
+        "country 2020"
+    ]
 
     def __init__(
         self,
         client: DeezerClient,
-        target_size: int = 10,
-        target_size_per_query: int = 6,
-        queries: tuple[str, ...] = DEFAULT_QUERIES,
-        playlist_page_size: int = 25,
+        target_size: int = 1000,
+        target_size_per_query: int = 120,
+        queries: list[str] = DEFAULT_QUERIES,
+        playlist_page_size: int = 40,
     ) -> None:
         """Initialise le collecteur Deezer.
 
@@ -176,7 +176,7 @@ class DeezerCollector:
 
             print(
                 f"Requête '{query}' terminée :",
-                f"{len(query_track_ids)} nouvelles tacks uniques ajoutées"
+                f"{len(query_track_ids)} nouvelles tracks uniques ajoutées"
             )
 
         return list(tracks_by_id.values())
