@@ -96,18 +96,31 @@ Une fois toutes les données collectées, elles sont assemblées entre elles afi
 
 ## Question 1 : Nombre de fans et popularité des titres
 
-La corrélation de Spearman a été choisie afin de mesurer la relation entre le nombre de fans et la popularité des titres. La corrélation de Pearson n'a pas été choisie car nous ne supposons pas de relation linéaire entre ces variables.
+La corrélation de Spearman a été choisie afin de mesurer la relation entre le nombre de fans et la popularité des titres. La corrélation de Pearson n'a pas été choisie car je ne suppose pas de relation linéaire entre ces variables.
 
 Les résultats montrent une corrélation positive et significative entre le nombre de fans et la popularité des titres :
 
 |         |   ρ   |  p-value   |
 |---------|-------|------------|
-| Artiste | 0,428 | 7.668e-79  |
-| Album   | 0,627 | 1.115e-191 |
+| Artiste | 0.428 | 7.668e-79  |
+| Album   | 0.627 | 1.115e-191 |
 |         |       |            |
 
 La relation est donc modérée pour les artistes et plus forte pour les albums. Les résultats restent quasiment identiques après agrégation par artiste et par album. Cela indique que cette relation n'est pas uniquement liée au fait que certains artistes ou albums sont représentés par plusieurs titres dans l'échantillon.
 
 Même si ces résultats ne permettent pas d'établir une relation de causalité certaine, on peut conclure que, dans notre échantillon, les titres associés à davantage de fans tendent à être plus populaires sur Deezer, avec une relation plus marquée au niveau des albums.
 
-## Question 2 :
+## Question 2 : Genres, BPM et durée
+
+Les genres les plus représentés ont été identifiés en comptant le nombre de titres associés à chaque genre. Pour les tests statistiques, je n'ai retenu que les genres représentés par au moins 100 titres.
+
+|         |   H    |  p-value  |
+|---------|--------|-----------|
+| BPM     | 50.450 | 1.179e-08 |
+| Durée   | 44.673 | 1.583e-07 |
+|         |        |           |
+
+Les résultat des tests de Kruskal-Wallis montre une différence significative entre les genres, aussi bien pour le BPM que pour la durée des titres.
+
+On peut donc en conclure que, dans notre échantillon, le BPM et la durée des titres diffèrent significativement selon le genre musical.
+
