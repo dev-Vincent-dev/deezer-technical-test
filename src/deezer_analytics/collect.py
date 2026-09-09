@@ -43,7 +43,7 @@ class DeezerCollector:
             client: Client utilisé pour communiquer avec l'API Deezer.
             target_size: Nombre minimum de titres uniques à collecter
                          au total.
-            target_size_per_query: Nombre minimum de titres à collecter
+            target_size_per_query: Nombre de titres à collecter
                                    pour chaque requête.
             queries: Requêtes utilisées pour rechercher des playlists.
             playlist_page_size: Nombre de playlists demandées par page.
@@ -106,24 +106,26 @@ class DeezerCollector:
                 continue
 
             if track_id not in tracks_by_id:
-                # La track dont l'id est track_id n'a jamais été
-                # collectée. Cela est sûr car elle ne fait pas partie
+                # Le titre dont l'id est track_id n'a jamais été
+                # collecté. Cela est sûr car il ne fait pas partie
                 # de tracks_by_id. Donc on l'ajoute.
                 tracks_by_id[track_id] = track
                 query_track_ids.add(track_id)
 
             if len(query_track_ids) >= self._target_size_per_query:
-                # On stope l'ajout de nouvelles tracks
+                # On stope l'ajout de nouveaux titres
                 break
 
     def _collect_tracks_from_playlists(self) -> list[dict[str, Any]]:
         """Collecte les titres uniques provenant des playlists.
 
-        Chaque requête tente de collecter au moins
-        target_size_per_query titres.
+        Chaque requête devra collecter target_size_per_query titres.
 
         Returns:
             Liste de données JSON de titres uniques.
+        
+        Raises:
+            DeezerAPIError: Si la requête échoue.
         """
         tracks_by_id: dict[int, dict[str, Any]] = {}
 
@@ -195,6 +197,9 @@ class DeezerCollector:
 
         Returns:
             Données détaillées des titres.
+        
+        Raises:
+            DeezerAPIError: Si la requête échoue.
         """
         tracks_with_details: list[dict[str, Any]] = []
 
@@ -250,6 +255,9 @@ class DeezerCollector:
 
         Returns:
             Albums indexés par leur identifiant Deezer.
+
+        Raises:
+            DeezerAPIError: Si la requête échoue.
         """
         album_ids = self._extract_ids(tracks, "album")
 
@@ -274,6 +282,9 @@ class DeezerCollector:
 
         Returns:
             Artistes indexés par leur identifiant Deezer.
+        
+        Raises:
+            DeezerAPIError: Si la requête échoue.
         """
         artist_ids = self._extract_ids(tracks, "artist")
 
@@ -330,6 +341,9 @@ class DeezerCollector:
 
         Returns:
             Liste de tracks enrichis.
+        
+        Raises:
+            ValueError: Si le titre ne peut pas être construit.
         """
         enriched_tracks: list[TrackEnriched] = []
 
@@ -358,7 +372,7 @@ class DeezerCollector:
                 )
             except ValueError as error:
                 raise ValueError(
-                    f"Impossible de construire le track "
+                    f"Impossible de construire le titre "
                     f"{track.get('id')}: {error}"
                 ) from error
 
@@ -558,15 +572,14 @@ class DeezerCollector:
             d'album et d'artiste.
 
         Raises:
-            ValueError: Si suffisamment de titres ne peuvent pas être
-                        collectés.
+            ValueError: Si moins de _target_size titres ont été collectés.
         """
         tracks = self._collect_tracks_from_playlists()
 
         if len(tracks) < self._target_size:
             raise ValueError(
                 f"Impossible de collecter {self._target_size} titres "
-                f"uniques. Seulement {len(tracks)} titres ont été trouvés."
+                f"uniques. Seulement {len(tracks)} titres ont été collectés."
             )
 
         tracks = self._collect_track_details(tracks)
