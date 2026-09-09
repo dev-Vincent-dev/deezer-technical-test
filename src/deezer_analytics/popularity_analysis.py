@@ -9,7 +9,7 @@ from scipy.stats import spearmanr
 
 
 DATA_PATH = Path("data/best_2026-09-09_02-15-29.csv")
-OUTPUT_DIR = Path("data/analysis")
+OUTPUT_DIR = Path("data/analysis/popularity")
 
 
 def compute_spearman(
