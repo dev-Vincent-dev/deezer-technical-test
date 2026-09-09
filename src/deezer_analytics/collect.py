@@ -178,7 +178,7 @@ class DeezerCollector:
 
             print(
                 f"Requête '{query}' terminée :",
-                f"{len(query_track_ids)} nouvelles tracks uniques ajoutées"
+                f"{len(query_track_ids)} nouveaux titres uniques ajoutés"
             )
 
         return list(tracks_by_id.values())
@@ -597,7 +597,7 @@ class DeezerCollector:
         print(
             "Enrichissement des données Tracks",
             "avec les données Albums et Artists terminé :",
-            f"{len(enriched_tracks)} tracks enrichies"
+            f"{len(enriched_tracks)} titres enrichis"
         )
 
         if len(enriched_tracks) < self._target_size:
