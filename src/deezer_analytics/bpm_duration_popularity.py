@@ -254,7 +254,7 @@ def print_summary(
     )
 
 
-def main() -> None:
+def run_analysis() -> None:
     """Exécute l'analyse BPM / durée / popularité."""
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -283,4 +283,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    run_analysis()

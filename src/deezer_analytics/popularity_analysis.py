@@ -297,7 +297,7 @@ def create_plots(df: pd.DataFrame, output_dir: Path) -> None:
     )
 
 
-def main() -> None:
+def run_analysis() -> None:
     """Exécute l'ensemble de l'analyse."""
 
     df = pd.read_csv(DATA_PATH)
@@ -321,4 +321,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    run_analysis()

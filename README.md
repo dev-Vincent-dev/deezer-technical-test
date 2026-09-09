@@ -33,11 +33,15 @@ Cloner le dépôt puis installer le projet et ses dépendances (dépendances de 
 
 ```bash
 git clone https://github.com/dev-Vincent-dev/deezer-technical-test.git
+
 cd deezer-technical-test
+
 python3.11 -m venv .venv
+
 source .venv/bin/activate # Sur Linux / macOS ou...
 # .venv\Scripts\activate.bat # Sur Windows (Invite de commandes) ou...
 # .venv\Scripts\Activate.ps1 # Sur Windows (PowerShell)
+
 pip install -e ".[dev]"
 ```
 
@@ -49,7 +53,18 @@ Le projet utilise `pytest` pour les tests et `mypy` pour la vérification statiq
 
 ```bash
 pytest -v  # pour lancer les tests
+
 mypy src/  # pour lancer la vérification des types
+```
+
+<br>
+
+# Exécution du projet
+
+```bash
+python -m deezer_analytics.main_partie_1  # Récupération des données via l'API Deezer
+
+python -m deezer_analytics.main_partie_2  # Analyse des données
 ```
 
 <br>

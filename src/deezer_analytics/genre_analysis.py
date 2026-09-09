@@ -214,7 +214,7 @@ def print_kruskal_result(
         )
 
 
-def main() -> None:
+def run_analysis() -> None:
     """Exécute l'ensemble de l'analyse des genres."""
 
     output_dir = OUTPUT_DIR
@@ -306,4 +306,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    run_analysis()
