@@ -53,7 +53,10 @@ mypy src/  # pour lancer la vérification des types
 
 <br>
 
-# Stratégie de collecte
+# Partie 1 : Récupération des données via l'API Deezer
+
+
+## Stratégie de collecte
 
 La collecte est basée sur la recherche de playlists Deezer à partir de mots-clés combinant un genre musical et une année de sortie.
 
@@ -72,7 +75,7 @@ Une fois toutes les données collectées, elles sont assemblées entre elles afi
 
 <br>
 
-# Choix techniques
+## Choix techniques
 
 - Séparation des responsabilités : client API, logique de collecte et modèles de données indépendants.
 - Client HTTP robuste : timeout, retries automatiques et gestion explicite des erreurs API/réseau.
@@ -86,3 +89,25 @@ Une fois toutes les données collectées, elles sont assemblées entre elles afi
 - Code configurable et testable : paramètres de collecte, injection du client API et méthodes séparées.
 - Export structuré des données collectées vers CSV.
 - Monitoring de la collecte en temps réel.
+
+<br>
+
+# Partie 2 : Analyse des données
+
+## Question 1 : Nombre de fans et popularité des titres
+
+La corrélation de Spearman a été choisie afin de mesurer la relation entre le nombre de fans et la popularité des titres. La corrélation de Pearson n'a pas été choisie car nous ne supposons pas de relation linéaire entre ces variables.
+
+Les résultats montrent une corrélation positive et significative entre le nombre de fans et la popularité des titres :
+
+|         |   ρ   |  p-value   |
+|---------|-------|------------|
+| Artiste | 0,428 | 7.668e-79  |
+| Album   | 0,627 | 1.115e-191 |
+|         |       |            |
+
+La relation est donc modérée pour les artistes et plus forte pour les albums. Les résultats restent quasiment identiques après agrégation par artiste et par album. Cela indique que cette relation n'est pas uniquement liée au fait que certains artistes ou albums sont représentés par plusieurs titres dans l'échantillon.
+
+Même si ces résultats ne permettent pas d'établir une relation de causalité certaine, on peut conclure que, dans notre échantillon, les titres associés à davantage de fans tendent à être plus populaires sur Deezer, avec une relation plus marquée au niveau des albums.
+
+## Question 2 :
