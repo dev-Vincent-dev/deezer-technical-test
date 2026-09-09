@@ -42,17 +42,33 @@ pip install -e ".[dev]"
 
 <br>
 
-# Stratégie de requêtage
+# Tests et vérification des types
 
-Afin de constituer un échantillon d'au moins 1 000 titres, la collecte est basée sur la recherche de playlists Deezer à partir de requêtes combinant un genre musical et une année de sortie.
+Le projet utilise `pytest` pour les tests et `mypy` pour la vérification statique des types.
 
-Les requêtes couvrent cinq genres (Pop, Rock, Indie, Jazz et Electro) sur trois années (2024, 2025 et 2026), soit 15 requêtes `/search/playlists` au total. Cette stratégie permet de favoriser une répartition relativement équilibrée entre plusieurs genres et années. Les playlists sont ici intéressantes car elles permettent de compenser l'impossibilité de l'API de faire des requêtes de tracks filtrées par genre et année.
+```bash
+pytest -v  # pour lancer les tests
+mypy src/  # pour lancer la vérification des types
+```
 
-Pour chaque requête, les playlists retournées sont parcourues avec pagination. Le contenu de chaque playlist est ensuite récupéré afin d'extraire les titres qu'elle contient. Les titres sont dédupliqués à l'aide de leur identifiant Deezer afin qu'un même titre présent dans plusieurs playlists ne soit conservé qu'une seule fois.
+<br>
 
-Pour atteindre les 1 000 titres demandés, la récupération de 67 titres uniques par requête suffirait (1 000 / 15 ≈ 67). Or, des doublons peuvent être présents entre les différentes requêtes. J'ai donc fait le choix d'imposer la récupération d'au moins 120 titres uniques par requête afin de compenser ces éventuels doublons.
+# Stratégie de collecte
 
-Une fois les titres collectés, les informations détaillées de chaque track sont récupérées via l'API Deezer, notamment le BPM et la date de sortie. Les identifiants uniques des albums et des artistes sont ensuite extraits afin de récupérer leurs informations une seule fois par entité afin d'optimiser le nombre de requêtes exéctuées. Les données des albums et des artistes sont finalement réunies aux données des tracks par identifiant pour construire les objets `TrackEnriched`.
+La collecte est basée sur la recherche de playlists Deezer à partir de mots-clés combinant un genre musical et une année de sortie.
+
+Les requêtes de recherche par mot-clé couvrent cinq genres (Pop, Alternative, Dance, Latino et Country) et trois années (2000, 2010 et 2020), ce qui représente soit 15 requêtes `/search/playlists` au total. Cette stratégie permet de favoriser une répartition relativement équilibrée entre plusieurs genres et années. Les playlists sont ici intéressantes car de nombreuses playlists liées à un genre et une année existent (*Soirée 2000*, *Country music 2019*, *Latino Hits 2026*, etc.)
+
+Avec ces 15 recherches, la collecte de 67 titres uniques par recherche suffirait pour atteindre les 1 000 titres demandés. Or, des doublons peuvent être présents entre les différentes requêtes. J'ai donc fait le choix d'imposer la récupération d'au moins 120 titres uniques par recherche afin de compenser ces éventuels doublons.
+
+Aussi, pour s'assurer d'un bon équilibre entre les genres et années, chaque recherche par mot-clé se poursuit tant que 120 tracks ne sont pas collectées.
+
+L'ordre de collecte est le suivant :\
+Playlists -> Tracks -> Albums -> Artists
+
+Des dictionnaires ayant pour clés les ids des Playlists, Tracks, Albums et Artists sont utilisés afin d'éviter des collectes de données identiques et minimiser le nombre de requêtes effectuées.
+
+Une fois toutes les données collectées, elles sont assemblées entre elles afin de construire des objets `TrackEnriched`.
 
 <br>
 
@@ -61,6 +77,7 @@ Une fois les titres collectés, les informations détaillées de chaque track so
 - Séparation des responsabilités : client API, logique de collecte et modèles de données indépendants.
 - Client HTTP robuste : timeout, retries automatiques et gestion explicite des erreurs API/réseau.
 - Pagination et collecte contrôlée : gestion des pages Deezer avec un objectif minimum global et par requête.
+- Rate limiting afin de limiter la fréquence des requêtes et réduire les risques de dépassement du quota Deezer
 - Déduplication des données : tracks, albums et artistes dédupliqués via leurs identifiants.
 - Enrichissement multi-entités : récupération des détails des tracks, albums et artistes.
 - Validation et normalisation des données : vérification des types, gestion des champs optionnels et conversion des dates.
@@ -69,12 +86,3 @@ Une fois les titres collectés, les informations détaillées de chaque track so
 - Code configurable et testable : paramètres de collecte, injection du client API et méthodes séparées.
 - Export structuré des données collectées vers CSV.
 - Monitoring de la collecte en temps réel.
-
-<br>
-
-# Qualité du code
-
-- Annotations de type Python vérifiées avec Mypy
-- Documentation en "Google-style docstring"
-- Tests automatisés avec Pytest
-- Versionnement avec Git
